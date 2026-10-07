@@ -25,6 +25,7 @@ class Course(models.Model):
         ('major', 'Major'), ('minor', 'Minor'), ('elective', 'Elective')
     ])
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    total_semesters = models.IntegerField()
 
     def __str__(self):
         return f"{self.department} {self.course_name}"
