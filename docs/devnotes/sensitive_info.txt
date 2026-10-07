@@ -1,0 +1,1 @@
+*NOTE: default password is FirstName + last four digit of employeeID/ enrollmentID

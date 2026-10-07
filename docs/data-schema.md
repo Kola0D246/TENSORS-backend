@@ -17,13 +17,15 @@
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
-| login_id | string | not null, unique | User | Primary key, institute email id |
+| username | string | not null, unique | User | Primary key, institute email id |
 | password | hashed | not null | User | Hashed + Salted |
-| institute_id* | int | not null | User | Foreign key |
+| institute_id | int | not null | User | Foreign key |
 | role | enum | not null | User | Management, HOD, Faculty, Student |
 | created_at | timestamp | not null | System | Time of account creation, constant |
 
-*NOTE: institute_id is only for multiple institute setup
+NOTE: institute_id is only for multiple institute setup
+NOTE: using default django login table, we only create role feild in source code
+
 ---
 
 ### 2. Session Table
@@ -35,14 +37,13 @@
 | last_login | timestamp | not null | System | Updated every login (for audit/security) |
 
 NOTE: unique login id means one login_id can be active at only single device at a time
+NOTE: using default django login table, we only create role feild in source code
 
 ---
 
 ## 🏫 Data Given by College Management
 
----
-
-### 2. Institute Table
+### 1. Institute Table
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -57,7 +58,7 @@ NOTE : If made for single college, this information will be setup as json file
 
 ---
 
-### 1. TimeSlot
+### 2. TimeSlot
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|-----------|------------|----------|--------|
@@ -67,7 +68,7 @@ NOTE : If made for single college, this information will be setup as json file
 
 ---
 
-### 2. Period time 
+### 3. Period time 
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|-----------|------------|----------|--------|
@@ -77,14 +78,14 @@ NOTE : If made for single college, this information will be setup as json file
 
 ---
 
-### 2. Building Table
+### 4. Building Table
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|-----------|------------|----------|--------|
 | building_id | int | not null | System | Primary key, auto_increment |
 | building_name | string | not null | User | - |
 
-### 2. Room Table (Classrooms / Labs)
+### 5. Room Table (Classrooms / Labs)
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|-----------|------------|----------|--------|
@@ -99,7 +100,7 @@ NOTE: Building table and building_id only exist if college opt for multiple buil
 
 ---
 
-### 3. Departments Information
+### 6. Departments Information
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -108,7 +109,7 @@ NOTE: Building table and building_id only exist if college opt for multiple buil
 
 ---
 
-### 4. Faculty Table
+### 7. Faculty Table
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -117,7 +118,7 @@ NOTE: Building table and building_id only exist if college opt for multiple buil
 | qualification | string | not null | User | - |
 
 
-### 5. Course Table
+### 8. Course Table
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -131,7 +132,8 @@ NOTE: Should we add semester feild also?
 NOTE: Check if same course can be on different department (making M:M relation)
 
 ---
-## 6. Semester Table
+
+## 9. Semester Table
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -140,7 +142,7 @@ NOTE: Check if same course can be on different department (making M:M relation)
 
 ---
 
-### 7. Subject Table
+### 10. Subject Table
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -154,7 +156,7 @@ NOTE: in frontend, mention both subject_code and subject_name
 
 ---
 
-### 8. Faculty Unavailability Table
+### 11. Faculty Unavailability Table
 
 NOTE: faculty is unavailable
 
@@ -166,7 +168,7 @@ NOTE: faculty is unavailable
 
 ---
 
-### 9. Student Table 
+### 12. Student Table 
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -177,9 +179,9 @@ NOTE: faculty is unavailable
 
 NOTE: Connect student, faculty with user table.
 
-## RELATIONSHIP TABLE
+## M:M RELATIONSHIP TABLE
 
-### 1. Room - Department (M:M)
+### 1. Room - Department
 
 NOTE: if room are divided between department
 
@@ -188,7 +190,7 @@ NOTE: if room are divided between department
 | room_id | int | not null | User | Foreign key |
 | department_id | int | not null | User | Foreign key |
 
-### 2. Subject - Lab (M:M)
+### 2. Subject - Lab
 
 NOTE: each lab / class is assign for what subjects
 
@@ -197,7 +199,7 @@ NOTE: each lab / class is assign for what subjects
 | room_id | int | not null | User | Foreign key |
 | subject_code | string | not null | User | Foreign key |
 
-### 3. CourseSemester Table
+### 3. Subject - Semester Table
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -207,7 +209,7 @@ NOTE: each lab / class is assign for what subjects
 
 NOTE: unique(course_id, semester_id)
 
-### 4. Faculty - Department (M:M)
+### 4. Faculty - Department
 
 NOTE: each faculty is assign for what department
 
@@ -217,7 +219,7 @@ NOTE: each faculty is assign for what department
 | department_id | int | not null | User | Foreign key |
 | designation | enum | not null | User | 
 
-### 5.  Faculty - Subject (M:M)
+### 5.  Faculty - Subject
 
 NOTE: each faculty is assign for what subject
 

@@ -1,8 +1,5 @@
-__pycache__/
-sensitive_info.txt
-
 # Virtual environment
-venv/
+.venv/
 
 # Django cache & migrations
 */migrations/__pycache__/
@@ -12,8 +9,12 @@ venv/
 
 # IDE / Editor
 .vscode/
+__pycache__/
 
 # Environment
 .env
 .env.*
 !.env.example
+
+# Temp
+sensitive-info.txt

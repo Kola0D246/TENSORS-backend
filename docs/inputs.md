@@ -1,14 +1,30 @@
-# 🧾 User Input Specification - Smart Classroom and Timetable Scheduler
+# 🧾 User Input
 
-## 1️⃣ Institute Registration (by Management)
+## 0. Input Types
+
+dropdown - dropdown with search as type
+
+## 1. Login Page
+
+| Field | Type | Required | constraints | remark / options |
+|-------|------|----------|-------------|------------------|
+| username | string | yes | college email domain | |
+| password | string | yes | encrypted | |
+| institute | dropdown search | yes | |
+| role | dropdown | search | 
+
+NOTE: Dashboard layout and content based on role, username
+NOTE: Check wether given username elligable for the role
+
+## 1️⃣ Institute Registration
 
 | Field | Type | Required | Description |
 |--------|------|-----------|-------------|
-| Institute Name | String | ✅ | Name of the college |
-| Affiliation | String | ✅ | University or governing body |
-| Location | String | ✅ | City, state |
-| Institute Contact Info | String | ✅ | Official contact number/email |
-| College Email Domain | String | ✅ | Used for admin verification |
+| Institute Name | String | yes | Name of the college |
+| Affiliation | String | yes | University or governing body |
+| Location | String | yes | City, state |
+| Institute Contact Info | String | yes | Official contact number/email |
+| College Email Domain | String | yes | Used for admin verification |
 
 ---
 
@@ -16,11 +32,11 @@
 
 | Field | Type | Required | Description |
 |--------|------|-----------|-------------|
-| Department Name | String | ✅ | Name of department |
-| Classroom/Lab Info | Object | ✅ | Room number, type, capacity, department |
-| Time Slots | Object | ✅ | Periods, start time, end time |
-| Faculty Info | List | ✅ | Name |
-| Student Info | List | ✅ | Enrollment no, opted major/minor/electives |
+| Department Name | String | yes | Name of department |
+| Classroom/Lab Info | Object | yes | Room number, type, capacity, department |
+| Time Slots | Object | yes | Periods, start time, end time |
+| Faculty Info | List | yes | Name |
+| Student Info | List | yes | Enrollment no, opted major/minor/electives |
 
 
 ---
@@ -29,8 +45,8 @@
 
 | Field | Type | Required | Description |
 |--------|------|-----------|-------------|
-| Course info | Objects | ✅ | Course Name, type |
-| Subjects | List | ✅ | Subject name, theory/practical hours |
+| Course info | Objects | yes | Course Name, type |
+| Subjects | List | yes | Subject name, theory/practical hours |
 
 ---
 
@@ -38,7 +54,7 @@
 
 | Field | Type | Required | Description |
 |--------|------|-----------|-------------|
-| Unavailability | Schedule | ✅ | Days and times faculty is available |
+| Unavailability | Schedule | yes | Days and times faculty is available |
 
 ---
 
