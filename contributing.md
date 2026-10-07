@@ -61,11 +61,3 @@ Then open a Pull Request (PR) to merge into dev.
 2. Write clear commit messages.
 3. Update documentation if needed (README.md, CHANGELOG.md).
 4. Request review from a team member.
-
----
-
-## 🧾 License and Access
-
-This is a proprietary project under Team TENSORS.
-All code, designs, and documentation are owned by the team.
-Unauthorized sharing or external use is prohibited.

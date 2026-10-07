@@ -58,13 +58,10 @@ A **web-based platform** that:
 
 | Layer | Technology |
 |-------|-------------|
-| **Frontend** | React.js, Tailwind CSS / Material UI, FullCalendar.js |
-| **Backend** | Django / FastAPI (Python) or Node.js (Express) |
-| **Database** | PostgreSQL / MySQL |
+| **Frontend** | React.js, Tailwind CSS |
+| **Backend** | Django / FastAPI |
+| **Database** | PostgreSQL |
 | **Scheduling Engine** | Google OR-Tools, OptaPlanner, Rule-based Logic |
-| **APIs** | RESTful / GraphQL |
-| **Hosting** | AWS / GCP / Azure |
-| **Version Control** | Git + GitHub |
 
 ## 🧰 Installation & Setup
 
@@ -79,8 +76,7 @@ cd smart-scheduler
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
-
----
+```
 
 ## AI / Optimization Workflow
 
@@ -90,4 +86,6 @@ python manage.py runserver
 
 ## 📜 License
 
-You are allowed to view or fork the repo, but not permitted to use, copy, modify, or distribute this software in your own projects
+This is a proprietary project under Team TENSORS.
+All code, designs, and documentation are owned by the team.
+Unauthorized use, copy, modification, distribution and sharing is prohibited.
