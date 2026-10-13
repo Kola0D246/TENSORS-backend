@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .managers import UserManager
 
 class User(AbstractUser):
     class Role(models.TextChoices):
@@ -10,6 +11,8 @@ class User(AbstractUser):
 
     email=models.EmailField('college email', unique=True)
     role = models.CharField(max_length=20, choices=Role.choices, default=Role.STUDENT)
+
+    objects = UserManager()
 
     REQUIRED_FIELDS = ["email"]
 
@@ -22,4 +25,3 @@ class User(AbstractUser):
         return self.username
 
     # TODO: add Meta constraint: user_email_unique_lower
-    # TODO: apply lower unique in serializer also
