@@ -30,6 +30,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # projecct apps
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,8 @@ DATABASES = {
         'PORT': env('DB_PORT'),
     }
 }
+
+AUTH_USER_MODEL = 'users.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
