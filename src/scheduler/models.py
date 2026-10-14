@@ -10,6 +10,6 @@ class Occupancy(models.Model):
 
     class Meta:
         models.UniqueConstraint(
-            fields=['room', 'timeslot']
+            fields=['room', 'timeslot'],
             name='unique_timeslot_room'
         )
