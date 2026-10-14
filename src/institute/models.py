@@ -141,7 +141,7 @@ class FacultyDepartment(models.Model):
             ),
         ]
 
-class StudentBatch(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    semester = models.IntegerField()
-    #incomplete
+#class StudentBatch(models.Model):
+#   course = models.ForeignKey(Course, on_delete=models.CASCADE)
+#   semester = models.IntegerField()
+#   #incomplete
