@@ -33,6 +33,8 @@ INSTALLED_APPS = [
 
     # projecct apps
     'users',
+    'institute',
+    'scheduler',
 ]
 
 MIDDLEWARE = [
