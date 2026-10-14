@@ -62,6 +62,11 @@ class Faculty(models.Model):
     employee_id = models.CharField(max_length=20, unique=True)
     faculty_name = models.CharField(max_length=200)
     qualification = models.CharField(max_length=1200)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="faculty_profile",)
 
     def __str__(self):
         return self.faculty_name
@@ -120,7 +125,11 @@ class Student(models.Model):
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
     course = models.ManyToManyField(Course)
     semester = models.IntegerField()
-
+    user = models.OneToOneField(
+            settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+            null=True, blank=True, related_name="student_profile",
+        )
+    
     def __str__(self):
         return f"{self.enrollment_no} {self.student_name}"
 
