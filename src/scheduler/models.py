@@ -1,15 +1,21 @@
 from django.db import models
-from institute.models import TimeSlot, Room, Faculty, Subject, Student
 
 class Occupancy(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    timeslot = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
-    students = models.ManyToManyField(Student)
+    room = models.ForeignKey("institute.Room", on_delete=models.CASCADE)
+    timeslot = models.ForeignKey("institute.TimeSlot", on_delete=models.CASCADE)
+    subject = models.ForeignKey("institute.Subject", on_delete=models.CASCADE)
+    faculty = models.ForeignKey("institute.Faculty", on_delete=models.CASCADE)
+    students = models.ManyToManyField("institute.Student")
+    # need to create student groups
 
     class Meta:
         models.UniqueConstraint(
             fields=['room', 'timeslot'],
             name='unique_timeslot_room'
         )
+        models.UniqueConstraint(
+                    fields=['faculty', 'timeslot'],
+                    name='unique_timeslot_faculty'
+                )
+
+# TODO: model to store multiple generated timetable
