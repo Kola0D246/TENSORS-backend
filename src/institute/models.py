@@ -118,12 +118,13 @@ class Student(models.Model):
     enrollment_no = models.CharField(max_length=50, unique=True)
     student_name = models.CharField(max_length=200)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+    course = models.ManyToManyField(Course)
     semester = models.IntegerField()
 
     def __str__(self):
         return f"{self.enrollment_no} {self.student_name}"
 
-# Relation ship models
+# M:M Relation models
 
 class FacultyDepartment(models.Model):
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
@@ -139,3 +140,8 @@ class FacultyDepartment(models.Model):
                 name='unique_faculty_department'
             ),
         ]
+
+class StudentBatch(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    semester = models.IntegerField()
+    #incomplete

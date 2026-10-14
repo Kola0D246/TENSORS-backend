@@ -14,8 +14,8 @@ class Occupancy(models.Model):
             name='unique_timeslot_room'
         )
         models.UniqueConstraint(
-                    fields=['faculty', 'timeslot'],
-                    name='unique_timeslot_faculty'
-                )
+            fields=['faculty', 'timeslot'],
+            name='unique_timeslot_faculty'
+        )
 
 # TODO: model to store multiple generated timetable
