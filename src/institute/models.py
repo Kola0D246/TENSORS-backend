@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Period(models.Model):
     period = models.IntegerField(primary_key=True)
