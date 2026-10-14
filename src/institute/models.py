@@ -6,7 +6,16 @@ class Period(models.Model):
     end_time = models.TimeField()
 
 class TimeSlot(models.Model):
-    day = models.CharField(max_length=20)
+    class Days(models.IntegerChoices):
+        MON = 0, "Monday"
+        TUES = 1, "Tuesday"
+        WED = 2, "Wednesday"
+        THUS = 3, "Thursday"
+        FRI = 4, "Friday"
+        SAT = 5, "Saturday"
+        SUN = 6, "Sunday"
+
+    day = models.IntegerField(choices=Days.choices)
     period = models.ForeignKey(Period, on_delete=models.CASCADE)
 
     class Meta:
@@ -26,10 +35,13 @@ class Department(models.Model):
         return self.department_name
 
 class Course(models.Model):
+    class CourseTypes(models.TextChoices):
+        MAJOR = 'major', 'Major'
+        MINOR = 'minor', 'Minor'
+        ELECTIVE = 'elective', 'Elective'
+
     course_name = models.CharField(max_length=255)
-    course_type = models.CharField(max_length=10, choices=[
-        ('major', 'Major'), ('minor', 'Minor'), ('elective', 'Elective')
-    ])
+    course_type = models.CharField(max_length=10, choices=CourseTypes.choices)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     total_semesters = models.IntegerField()
 
@@ -78,12 +90,15 @@ class Building(models.Model):
         return self.name
 
 class Room(models.Model):
+    class RoomTypes(models.TextChoices):
+        CLASS = 'class', 'Class'
+        LAB = 'lab', 'Lab'
+        SMARTCLASS = 'smartclass', 'Smartclass'
+
     room_no = models.CharField(max_length= 200)
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
     departments = models.ManyToManyField(Department)
-    room_type = models.CharField(max_length=20, choices=[
-        ('class', 'Class'), ('lab', 'Lab'), ('smartClass', 'Smart Class')
-    ])
+    room_type = models.CharField(max_length=20, choices=RoomTypes.choices)
     subjects = models.ManyToManyField(Subject)
     capacity = models.IntegerField()
     availability = models.BooleanField(default=True)
