@@ -17,6 +17,7 @@
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
+<<<<<<< HEAD
 | username | string | not null, unique | User | Primary key, institute email id |
 | password | hashed | not null | User | Hashed + Salted |
 | institute_id | int | not null | User | Foreign key |
@@ -25,7 +26,14 @@
 
 NOTE: institute_id is only for multiple institute setup
 NOTE: using default django login table, we only create role feild in source code
+=======
+| login_id | string | not null, unique | User | Primary key, institute email id |
+| password | hashed | not null | User | Hashed + Salted |
+| institute_id* | int | not null | User | Foreign key |
+| role | enum | not null | User | Management, HOD, Faculty, Student |
+| created_at | timestamp | not null | System | Time of account creation, constant |
 
+*NOTE: institute_id is only for multiple institute setup
 ---
 
 ### 2. Session Table
@@ -37,10 +45,37 @@ NOTE: using default django login table, we only create role feild in source code
 | last_login | timestamp | not null | System | Updated every login (for audit/security) |
 
 NOTE: unique login id means one login_id can be active at only single device at a time
+
+---
+
+## 🏫 Data Given by College Management
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
+
+---
+
+### 2. Session Table
+
+| Field | Data Type | Constraint | Value By | Remark |
+|-------|------------|-------------|-----------|---------|
+<<<<<<< HEAD
+| token_id | string | not null | System | primary key, random UUID |
+| login_id | string | not null, unique | User | Foreign key |
+| last_login | timestamp | not null | System | Updated every login (for audit/security) |
+=======
+| institute_id | int | not null | System | Primary key, auto_increment |
+| institute_name | string | not null | User | — |
+| affiliation | string | not null | User | — |
+| location | string | not null | User | — |
+| contact_info | string | not null | User | Official email |
+| email_domain | string | not null | User | for auth verification |
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
+
+NOTE: unique login id means one login_id can be active at only single device at a time
 NOTE: using default django login table, we only create role feild in source code
 
 ---
 
+<<<<<<< HEAD
 ## 🏫 Data Given by College Management
 
 ### 1. Institute Table
@@ -59,6 +94,9 @@ NOTE : If made for single college, this information will be setup as json file
 ---
 
 ### 2. TimeSlot
+=======
+### 1. TimeSlot
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|-----------|------------|----------|--------|
@@ -132,8 +170,12 @@ NOTE: Should we add semester feild also?
 NOTE: Check if same course can be on different department (making M:M relation)
 
 ---
+<<<<<<< HEAD
 
 ## 9. Semester Table
+=======
+## 6. Semester Table
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -142,7 +184,11 @@ NOTE: Check if same course can be on different department (making M:M relation)
 
 ---
 
+<<<<<<< HEAD
 ### 10. Subject Table
+=======
+### 7. Subject Table
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -156,7 +202,11 @@ NOTE: in frontend, mention both subject_code and subject_name
 
 ---
 
+<<<<<<< HEAD
 ### 11. Faculty Unavailability Table
+=======
+### 8. Faculty Unavailability Table
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 NOTE: faculty is unavailable
 
@@ -168,7 +218,11 @@ NOTE: faculty is unavailable
 
 ---
 
+<<<<<<< HEAD
 ### 12. Student Table 
+=======
+### 9. Student Table 
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -199,7 +253,11 @@ NOTE: each lab / class is assign for what subjects
 | room_id | int | not null | User | Foreign key |
 | subject_code | string | not null | User | Foreign key |
 
+<<<<<<< HEAD
 ### 3. Subject - Semester Table
+=======
+### 3. CourseSemester Table
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 | Field | Data Type | Constraint | Value By | Remark |
 |-------|------------|-------------|-----------|---------|
@@ -209,7 +267,11 @@ NOTE: each lab / class is assign for what subjects
 
 NOTE: unique(course_id, semester_id)
 
+<<<<<<< HEAD
 ### 4. Faculty - Department
+=======
+### 4. Faculty - Department (M:M)
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 NOTE: each faculty is assign for what department
 
@@ -219,7 +281,11 @@ NOTE: each faculty is assign for what department
 | department_id | int | not null | User | Foreign key |
 | designation | enum | not null | User | 
 
+<<<<<<< HEAD
 ### 5.  Faculty - Subject
+=======
+### 5.  Faculty - Subject (M:M)
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 NOTE: each faculty is assign for what subject
 

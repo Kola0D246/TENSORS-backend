@@ -32,11 +32,19 @@ NOTE: Check wether given username elligable for the role
 
 | Field | Type | Required | Description |
 |--------|------|-----------|-------------|
+<<<<<<< HEAD
 | Department Name | String | yes | Name of department |
 | Classroom/Lab Info | Object | yes | Room number, type, capacity, department |
 | Time Slots | Object | yes | Periods, start time, end time |
 | Faculty Info | List | yes | Name |
 | Student Info | List | yes | Enrollment no, opted major/minor/electives |
+=======
+| Department Name | String | ✅ | Name of department |
+| Classroom/Lab Info | Object | ✅ | Room number, type, capacity, department |
+| Time Slots | Object | ✅ | Periods, start time, end time |
+| Faculty Info | List | ✅ | Name |
+| Student Info | List | ✅ | Enrollment no, opted major/minor/electives |
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 
 ---
@@ -45,8 +53,13 @@ NOTE: Check wether given username elligable for the role
 
 | Field | Type | Required | Description |
 |--------|------|-----------|-------------|
+<<<<<<< HEAD
 | Course info | Objects | yes | Course Name, type |
 | Subjects | List | yes | Subject name, theory/practical hours |
+=======
+| Course info | Objects | ✅ | Course Name, type |
+| Subjects | List | ✅ | Subject name, theory/practical hours |
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 ---
 
@@ -54,7 +67,11 @@ NOTE: Check wether given username elligable for the role
 
 | Field | Type | Required | Description |
 |--------|------|-----------|-------------|
+<<<<<<< HEAD
 | Unavailability | Schedule | yes | Days and times faculty is available |
+=======
+| Unavailability | Schedule | ✅ | Days and times faculty is available |
+>>>>>>> 04a85fb48950a1c902548b48f7c61e224aed22bd
 
 ---
 
