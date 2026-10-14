@@ -1,13 +1,19 @@
 from django.db import models
 
-class Periods(models.Model):
+class Period(models.Model):
     period = models.IntegerField(primary_key=True)
     start_time = models.TimeField()
     end_time = models.TimeField()
 
 class TimeSlot(models.Model):
     day = models.CharField(max_length=20)
-    period = models.ForeignKey(Periods, on_delete=models.CASCADE)
+    period = models.ForeignKey(Period, on_delete=models.CASCADE)
+
+    class Meta:
+        models.UniqueConstraint(
+            fields=['day', 'period'],
+            name='unique_day_period'
+        )
 
     def __str__(self):
         return f"{self.day} {self.period}"
@@ -43,7 +49,7 @@ class Subject(models.Model):
 class Faculty(models.Model):
     employee_id = models.CharField(max_length=20, unique=True)
     faculty_name = models.CharField(max_length=200)
-    qualifications = models.CharField(max_length=1200)
+    qualification = models.CharField(max_length=1200)
 
     def __str__(self):
         return self.faculty_name
@@ -54,20 +60,31 @@ class FacultyUnavailability(models.Model):
     reason = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields= ['faculty', 'timeslot'],
+                name='unique_faculty_timeslot'
+            ),
+        ]
+
     def __str__(self):
         return f"{self.faculty} unavailable at {self.timeslot.day} {self.timeslot.period}"
 
 class Building(models.Model):
-    building = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class Room(models.Model):
     room_no = models.CharField(max_length= 200)
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
-    department = models.ManyToManyField(Department)
+    departments = models.ManyToManyField(Department)
     room_type = models.CharField(max_length=20, choices=[
         ('class', 'Class'), ('lab', 'Lab'), ('smartClass', 'Smart Class')
     ])
-    subject= models.ManyToManyField(Subject)
+    subjects = models.ManyToManyField(Subject)
     capacity = models.IntegerField()
     availability = models.BooleanField(default=True)
 
