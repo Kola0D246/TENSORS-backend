@@ -22,10 +22,10 @@ The frontend lives in a separate repository.
 
 ## Problem Statement
 
+- Static timetables that cannot react to real-time changes
 - Limited classrooms and overlapping schedules
 - Faculty constraints and uneven workload distribution
 - Complex elective and multidisciplinary course structures
-- Static timetables that cannot react to real-time changes
 - Manual, error-prone scheduling in spreadsheets
 
 ## Solution Overview
