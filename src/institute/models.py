@@ -28,6 +28,10 @@ class TimeSlot(models.Model):
     def __str__(self):
         return f"{self.day} {self.period}"
 
+# ---------------------------------------------------------------------------
+# Onboarding hierarchy
+# ---------------------------------------------------------------------------
+
 class Department(models.Model):
     department_name = models.CharField(max_length=200)
     department_short = models.CharField(max_length=10)
@@ -49,15 +53,9 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.department} {self.course_name}"
 
-class Subject(models.Model):
-    subject_code = models.CharField(max_length=20, unique=True)
-    subject_name = models.CharField(max_length=255)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    total_theory_hours = models.IntegerField()
-    total_practical_hours = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.subject_code} {self.subject_name}"
+# ---------------------------------------------------------------------------
+# People (nullable link to the login account)
+# ---------------------------------------------------------------------------
 
 class Faculty(models.Model):
     employee_id = models.CharField(max_length=20, unique=True)
@@ -72,22 +70,37 @@ class Faculty(models.Model):
     def __str__(self):
         return self.faculty_name
 
-class FacultyUnavailability(models.Model):    
-    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
-    timeslot = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
-    reason = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+class Student(models.Model):
+    enrollment_no = models.CharField(max_length=50, unique=True)
+    student_name = models.CharField(max_length=200)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+    course = models.ManyToManyField(Course)
+    semester = models.IntegerField()
+    user = models.OneToOneField(
+            settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+            null=True, blank=True, related_name="student_profile",
+        )
+    
+    def __str__(self):
+        return f"{self.enrollment_no} {self.student_name}"
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields= ['faculty', 'timeslot'],
-                name='unique_faculty_timeslot'
-            ),
-        ]
+# ---------------------------------------------------------------------------
+# Curriculum
+# ---------------------------------------------------------------------------
+
+class Subject(models.Model):
+    subject_code = models.CharField(max_length=20, unique=True)
+    subject_name = models.CharField(max_length=255)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    total_theory_hours = models.IntegerField()
+    total_practical_hours = models.IntegerField()
 
     def __str__(self):
-        return f"{self.faculty} unavailable at {self.timeslot.day} {self.timeslot.period}"
+        return f"{self.subject_code} {self.subject_name}"
+
+# ---------------------------------------------------------------------------
+# Resources
+# ---------------------------------------------------------------------------
 
 class Building(models.Model):
     name = models.CharField(max_length=200)
@@ -120,19 +133,29 @@ class Room(models.Model):
             )
         ]
 
-class Student(models.Model):
-    enrollment_no = models.CharField(max_length=50, unique=True)
-    student_name = models.CharField(max_length=200)
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
-    course = models.ManyToManyField(Course)
-    semester = models.IntegerField()
-    user = models.OneToOneField(
-            settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
-            null=True, blank=True, related_name="student_profile",
-        )
-    
+
+# ---------------------------------------------------------------------------
+# Availability (hard-constraint inputs)
+# ---------------------------------------------------------------------------
+
+class FacultyUnavailability(models.Model):    
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    timeslot = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
+    reason = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields= ['faculty', 'timeslot'],
+                name='unique_faculty_timeslot'
+            ),
+        ]
+
     def __str__(self):
-        return f"{self.enrollment_no} {self.student_name}"
+        return f"{self.faculty} unavailable at {self.timeslot.day} {self.timeslot.period}"
+
+
 
 # M:M Relation models
 
