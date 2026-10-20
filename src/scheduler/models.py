@@ -9,13 +9,15 @@ class Occupancy(models.Model):
     # need to create student groups
 
     class Meta:
-        models.UniqueConstraint(
-            fields=['room', 'timeslot'],
-            name='unique_timeslot_room'
-        )
-        models.UniqueConstraint(
-            fields=['faculty', 'timeslot'],
-            name='unique_timeslot_faculty'
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=['room', 'timeslot'],
+                name='unique_timeslot_room'
+            ),
+            models.UniqueConstraint(
+                fields=['faculty', 'timeslot'],
+                name='unique_timeslot_faculty'
+            )
+        ]
 
 # TODO: model to store multiple generated timetable

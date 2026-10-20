@@ -9,12 +9,13 @@ class User(AbstractUser):
         FACULTY = 'Faculty', 'Faculty'
         STUDENT = 'Student', 'Student'
 
-    email=models.EmailField('college email', unique=True)
+    email = models.EmailField('college email', unique=True)
     role = models.CharField(max_length=20, choices=Role.choices, default=Role.STUDENT)
+    institute = models.ForeignKey("institute.Institute", on_delete=models.CASCADE)
 
     objects = UserManager()
 
-    REQUIRED_FIELDS = ["email"]
+    REQUIRED_FIELDS = ["email", "institute"]
 
     def save(self, *args, **kwargs):
         if self.email:
