@@ -120,8 +120,31 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.enrollment_no} {self.student_name}"
 
-#class StudentGroup(models.Model):
-#   incomplete
+# class StudentGroup(models.Model):
+
+#     class GroupTypes(models.TextChoices):
+#         CORE = "core", "Core"
+#         MINOR = "minor", "Minor"
+#         ELECTIVE = "elective", "Open Elective"
+
+#     group_name = models.CharField(max_length=100)
+#     group_type = models.CharField(max_length=20, choices=GroupTypes.choices)
+#     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True,blank=True)
+#     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
+#     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
+#     semester = models.PositiveSmallIntegerField()
+#     students = models.ManyToManyField(Student, related_name="student_groups", blank=True)
+
+#     class Meta:
+#         constraints = [
+#             models.UniqueConstraint(
+#                 fields=["group_name", "semester"],
+#                 name="unique_student_semester"
+#             )
+#         ]
+
+#     def __str__(self):
+#         return f"{self.group_name} ({self.semester})"
 
 # ---------------------------------------------------------------------------
 # Curriculum
