@@ -16,9 +16,22 @@ class PeriodSerializer(serializers.ModelSerializer):
 class TimeSlotSerializer(serializers.ModelSerializer):
     period = PeriodSerializer(read_only=True)
 
-    def validate_time(self, value):
-        pass
-        # TODO: validate start_time < end_time
+    def validate_time(self, attrs):
+        start_time = attrs.get(
+            "start_time",
+            getattr(self.instance, "start_time", None)
+        )
+        end_time = attrs.get(
+            "end_time",
+            getattr(self.instance, "end_time", None)
+        )
+
+        if start_time and end_time and start_time >= end_time:
+            raise serializers.ValidationError({
+                "end_time": "End time must be after start time."
+            })
+
+        return attrs
 
     class Meta:
         model = TimeSlot
