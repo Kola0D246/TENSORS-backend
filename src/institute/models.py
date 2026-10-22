@@ -24,6 +24,10 @@ class Period(models.Model):
 
     class Meta:
         constraints = [
+            models.UniqueConstraint(
+                fields=['institute', 'period'],
+                name='unique_institute_period'
+            ),
             models.CheckConstraint(
                 condition=models.Q(start_time__lt=models.F("end_time")),
                 name="period_start_before_end"
@@ -58,6 +62,14 @@ class Department(models.Model):
     institute = models.ForeignKey(Institute, on_delete=models.CASCADE)
     department_name = models.CharField(max_length=200)
     department_code = models.CharField(max_length=10, unique=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['institute', 'department_name'],
+                name='unique_institute_department_name'
+            )
+        ]
 
     def __str__(self):
         return self.department_name
@@ -138,7 +150,8 @@ class Building(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["institute", "building_name"], name="unique_institute_building"
+                fields=["institute", "building_name"],
+                name="unique_institute_building"
             ),
         ]
 
