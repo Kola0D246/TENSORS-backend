@@ -18,7 +18,7 @@ class Institute(models.Model):
 
 class Period(models.Model):
     institute = models.ForeignKey(Institute, on_delete=models.CASCADE)
-    period = models.PositiveSmallIntegerField(primary_key=True)
+    period = models.PositiveSmallIntegerField()
     start_time = models.TimeField()
     end_time = models.TimeField()
 
